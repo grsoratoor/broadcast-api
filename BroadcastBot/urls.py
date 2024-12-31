@@ -23,7 +23,7 @@ from broadcast.views import UserViewSet, BroadcastViewSet, index
 # Create a router and register the UserViewSet
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
-router.register(r'broadcast', BroadcastViewSet, basename='broadcast')
+router.register(r'broadcasts', BroadcastViewSet, basename='broadcast')
 
 urlpatterns = [
     path('', index, name='index'),

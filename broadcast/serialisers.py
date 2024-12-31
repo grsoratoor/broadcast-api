@@ -6,7 +6,7 @@ from .models import User, Broadcast
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['telegram_id', 'blocked']
+        fields = ['telegram_id']
 
 
 class BroadcastSerializer(serializers.ModelSerializer):
