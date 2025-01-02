@@ -4,11 +4,24 @@
 set -e
 
 # Configuration
-PROJECT_DIR="django_project"
+PROJECT_DIR="."
 VENV_DIR="venv"
 MANAGE_PY="manage.py"
 PORT=8000
 COMMAND_NAME="send_broadcasts"
+
+# Prompt the user for the bot token and set it as an environment variable
+if [ -z "$BOT_TOKEN" ]; then
+    read -p "Enter your Bot Token: " BOT_TOKEN
+    export BOT_TOKEN
+fi
+
+# Confirm the bot token is set
+if [ -z "$BOT_TOKEN" ]; then
+    echo "Error: BOT_TOKEN is not set. Exiting."
+    exit 1
+fi
+echo "Bot Token is set."
 
 # Function to check if the server is running
 is_server_running() {
@@ -56,18 +69,18 @@ if [ ! -f "$MANAGE_PY" ]; then
     echo "Error: $MANAGE_PY not found in $PROJECT_DIR. Exiting."
     exit 1
 fi
-python "$MANAGE_PY" runserver &
+nohup python "$MANAGE_PY" runserver &
 
 # Wait a moment for the server to start
 sleep 5
 
 # Check if the 'send_broadcasts' command is already running
 if is_command_running; then
-    echo "An instance of '$COMMAND_NAME' is already running."
+    echo "An instance of '$COMMAND_NAME' is already running. Exiting."
 else
   # Run the custom Django management command
   echo "Running the '$COMMAND_NAME' Django command..."
-  python "$MANAGE_PY" $COMMAND_NAME &
+  nohup python "$MANAGE_PY" $COMMAND_NAME &
 fi
 
 # Deactivate the virtual environment
