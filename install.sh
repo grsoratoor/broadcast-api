@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Variables
 GITHUB_REPO_URL="https://github.com/grsoratoor/broadcast-api.git"
 PROJECT_DIR="broadcast_bot"
