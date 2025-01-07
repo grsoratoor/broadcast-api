@@ -5,10 +5,10 @@ set -e
 
 # Configuration
 PROJECT_DIR="."
-VENV_DIR="venv"
+VENV_DIR=".venv"
 MANAGE_PY="manage.py"
 PORT=8000
-COMMAND_NAME="send_broadcasts"
+COMMAND_NAME="broadcast"
 
 # Prompt the user for the bot token and set it as an environment variable
 if [ -z "$BOT_TOKEN" ]; then

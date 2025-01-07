@@ -16,7 +16,7 @@ class Command(BaseCommand):
     if not BOT_TOKEN:
         exit("BOT_TOKEN environment variable not set")
     RATE_LIMIT = 30  # Telegram allows 30 messages per second
-    BATCH_SIZE = 1000  # Number of users to process in one batch
+    BATCH_SIZE = 30  # Number of users to process in one batch
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

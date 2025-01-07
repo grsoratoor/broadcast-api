@@ -5,7 +5,7 @@ set -e
 # Variables
 GITHUB_REPO_URL="https://github.com/grsoratoor/broadcast-api.git"
 PROJECT_DIR="broadcast_bot"
-VENV_DIR="venv"
+VENV_DIR=".venv"
 REQUIREMENTS_FILE="requirements.txt"
 
 # Clone the GitHub repository
