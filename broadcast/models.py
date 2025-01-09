@@ -13,7 +13,16 @@ class Broadcast(models.Model):
         ('completed', 'Completed'),
     ]
 
+    MESSAGE_TYPE = [
+        ('text', 'Text'),
+        ('image', 'Image'),
+        ('video', 'Video'),
+    ]
+
     message = models.TextField()
+    buttons = models.JSONField(default=list)
+    file_id = models.CharField(max_length=255, null=True, blank=True)
+    type = models.CharField(max_length=20, choices=MESSAGE_TYPE, default='text')
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     total_target_users = models.PositiveIntegerField(default=0)  # Total users targeted

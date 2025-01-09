@@ -31,11 +31,31 @@ class Command(BaseCommand):
             self.stdout.write("Broadcast script terminated by user.")
 
     def send_message(self, chat_id, broadcast):
-        url = f"{self.TELEGRAM_BOT_API_URL}/sendMessage"
         payload = {
             'chat_id': chat_id,
-            'text': broadcast.message,
         }
+        if broadcast.type == "text":
+            url = f"{self.TELEGRAM_BOT_API_URL}/sendMessage"
+            payload["text"] = broadcast.message
+        elif broadcast.type == "image":
+            url = f"{self.TELEGRAM_BOT_API_URL}/sendPhoto"
+            payload['photo'] = broadcast.file_id
+            payload["caption"] = broadcast.message
+        elif broadcast.type == "video":
+            url = f"{self.TELEGRAM_BOT_API_URL}/sendVideo"
+            payload['video'] = broadcast.file_id
+            payload["caption"] = broadcast.message
+
+        if broadcast.buttons:
+            inline_keyboard = []
+            for btn in broadcast.buttons:
+                if btn["web_app"]:
+                    inline_keyboard.append([{"text": btn["text"], "web_app": {"url": btn["url"]}}])
+                else:
+                    inline_keyboard.append([{"text": btn["text"], "url": btn["url"]}])
+
+            payload["reply_markup"] = {"inline_keyboard": inline_keyboard}
+
         try:
             response = requests.post(url, json=payload)
             response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)

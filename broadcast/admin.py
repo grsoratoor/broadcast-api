@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Broadcast)
 class BroadcastAdmin(admin.ModelAdmin):
-    list_display = ('id', 'message', 'created_at', 'status', 'total_target_users',
+    list_display = ('id', 'message', 'type', 'buttons', 'file_id', 'created_at', 'status', 'total_target_users',
                     'total_successful', 'total_failed', 'users')
     search_fields = ('message',)
     list_filter = ('status', 'created_at')
